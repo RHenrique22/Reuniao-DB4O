@@ -22,7 +22,7 @@ public class DAOReuniao extends DAO<Reuniao> {
     }
 
     public void create(Reuniao object) {
-        Reuniao r = (Reuniao) object;
+        Reuniao r = object;
         int id = super.getMaxId();
         id++;
         r.setId(id);
@@ -30,7 +30,6 @@ public class DAOReuniao extends DAO<Reuniao> {
     }
 
     public List<Reuniao> consulta() {
-        // ArrayList<Reuniao> resultadoFinal = new ArrayList<Reuniao>();
         Query q = manager.query();
         q.constrain(Reuniao.class);
         q.descend("participantes").constrain(Convidado.class);

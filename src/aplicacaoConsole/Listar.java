@@ -15,7 +15,7 @@ public class Listar {
 			System.out.println("\n---------listagem de conviados-----");
 			for(Participante p : Fachada.listarConvidados()) 
 				System.out.println(p);
-			System.out.println("\n---------listagem de reunioes");
+			System.out.println("\n---------listagem de reunioes-----");
 			for(Reuniao r : Fachada.listarReunioes()) 
 				System.out.println(r);
 

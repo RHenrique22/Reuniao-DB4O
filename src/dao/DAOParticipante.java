@@ -20,9 +20,9 @@ public class DAOParticipante extends DAO<Participante> {
         if (resultados.size() > 0) {
             return resultados.get(0);
         }
-        else {
-            return null;
-        }
+
+        return null;
+        
     }
 
     public List<Participante> consulta(String nomePart, int mes) {

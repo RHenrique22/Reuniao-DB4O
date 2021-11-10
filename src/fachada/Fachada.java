@@ -181,10 +181,10 @@ public class Fachada {
 		DAO.commit();
 
 		// enviar email para participantes
-		for(Participante p : participantes)	{
-			enviarEmail(p.getEmail(), "nova reunião",
-			 "Você foi agendado para a reunião na data: " + r.getDatahora() + " e assunto: " + assunto);
-		}
+		// for(Participante p : participantes)	{
+		// 	enviarEmail(p.getEmail(), "nova reunião",
+		// 	 "Você foi agendado para a reunião na data: " + r.getDatahora() + " e assunto: " + assunto);
+		// }
 
 		return r;
 	}
@@ -236,8 +236,8 @@ public class Fachada {
 
 		DAO.commit();
 
-		enviarEmail(p.getEmail(), "novo participante",
-		 "Você foi adicionado a reunião na data:" + r.getDatahora() + " e assunto:" + r.getAssunto());
+		// enviarEmail(p.getEmail(), "novo participante",
+		//  "Você foi adicionado a reunião na data:" + r.getDatahora() + " e assunto:" + r.getAssunto());
 
 	}
 
@@ -271,8 +271,8 @@ public class Fachada {
 		
 		DAO.commit();
 
-		enviarEmail(p.getEmail(), "participante removido",
-		 "Você foi removido da reunião na data:" + r.getDatahora() + " e assunto:" + r.getAssunto());
+		// enviarEmail(p.getEmail(), "participante removido",
+		//  "Você foi removido da reunião na data:" + r.getDatahora() + " e assunto:" + r.getAssunto());
 
 		if (r.TotalDeParticipantes() < 2) {
 			cancelarReuniao(id);
@@ -304,10 +304,10 @@ public class Fachada {
 		DAO.commit();
 
 		//enviar email para todos os participantes
-		for (Participante p : r.getParticipantes()) {
-			enviarEmail(p.getEmail(), "reuniao cancelada",
-			 "data: " + r.getDatahora() + " e assunto:" + r.getAssunto());
-		}
+		// for (Participante p : r.getParticipantes()) {
+		// 	enviarEmail(p.getEmail(), "reuniao cancelada",
+		// 	 "data: " + r.getDatahora() + " e assunto:" + r.getAssunto());
+		// }
 
 	}
 
@@ -347,7 +347,7 @@ public class Fachada {
 			}
 		}
 
-		enviarEmail(p.getEmail()," descadastro ",  "vc foi excluido da agenda");
+		// enviarEmail(p.getEmail()," descadastro ",  "vc foi excluido da agenda");
 
 	}
 
@@ -380,41 +380,42 @@ public class Fachada {
 	 * biblioteca java.mail 1.6.2
 	 * ********************************************************
 	 */
-	public static void enviarEmail(String emaildestino, String assunto, String mensagem) {
-		try {
-			if (Fachada.emailDesabilitado)
-				return;
 
-			String emailorigem = Fachada.emailOrigem;
-			String senhaorigem = Fachada.senhaOrigem;
+	// public static void enviarEmail(String emaildestino, String assunto, String mensagem) {
+	// 	try {
+	// 		if (Fachada.emailDesabilitado)
+	// 			return;
 
-			//configurar email de origem
-			Properties props = new Properties();
-			props.put("mail.smtp.starttls.enable", "true");
-			props.put("mail.smtp.host", "smtp.gmail.com");
-			props.put("mail.smtp.port", "587");
-			props.put("mail.smtp.auth", "true");
-			Session session;
-			session = Session.getInstance(props,
-					new javax.mail.Authenticator() 	{
-				protected PasswordAuthentication getPasswordAuthentication() 	{
-					return new PasswordAuthentication(emailorigem, senhaorigem);
-				}
-			});
+	// 		String emailorigem = Fachada.emailOrigem;
+	// 		String senhaorigem = Fachada.senhaOrigem;
 
-			//criar e enviar email
-			MimeMessage message = new MimeMessage(session);
-			message.setSubject(assunto);
-			message.setFrom(new InternetAddress(emailorigem));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emaildestino));
-			message.setText(mensagem);   // usar "\n" para quebrar linhas
-			// Transport.send(message);
-		}
-		catch (MessagingException e) {
-			System.out.println(e.getMessage());
-		}
-		catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
+	// 		//configurar email de origem
+	// 		Properties props = new Properties();
+	// 		props.put("mail.smtp.starttls.enable", "true");
+	// 		props.put("mail.smtp.host", "smtp.gmail.com");
+	// 		props.put("mail.smtp.port", "587");
+	// 		props.put("mail.smtp.auth", "true");
+	// 		Session session;
+	// 		session = Session.getInstance(props,
+	// 				new javax.mail.Authenticator() 	{
+	// 			protected PasswordAuthentication getPasswordAuthentication() 	{
+	// 				return new PasswordAuthentication(emailorigem, senhaorigem);
+	// 			}
+	// 		});
+
+	// 		//criar e enviar email
+	// 		MimeMessage message = new MimeMessage(session);
+	// 		message.setSubject(assunto);
+	// 		message.setFrom(new InternetAddress(emailorigem));
+	// 		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emaildestino));
+	// 		message.setText(mensagem);   // usar "\n" para quebrar linhas
+	// 		// Transport.send(message);
+	// 	}
+	// 	catch (MessagingException e) {
+	// 		System.out.println(e.getMessage());
+	// 	}
+	// 	catch (Exception e) {
+	// 		System.out.println(e.getMessage());
+	// 	}
+	// }
 }
