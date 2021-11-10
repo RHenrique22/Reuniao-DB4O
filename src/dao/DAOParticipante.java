@@ -22,38 +22,61 @@ public class DAOParticipante extends DAO<Participante> {
         }
 
         return null;
-        
     }
 
     public List<Participante> consulta(String nomePart, int mes) {
         Query q = manager.query();
         q.constrain(Participante.class);
-        q.descend("reunioes").constrain(new Filtro(mes, nomePart));
+        q.constrain(new Filtro1(mes, nomePart));
         List<Participante> resultados = q.execute();
 
         return resultados;
     }
 }
 
-class Filtro implements Evaluation {
+class Filtro1 implements Evaluation {
 	private int mes;
     private String nome;
 
-	public Filtro (int mes, String nome) {
+	public Filtro1 (int mes, String nome) {
         this.mes = mes;
         this.nome = nome;
     }
 
 	public void evaluate(Candidate candidate) {
-		Reuniao r = (Reuniao) candidate.getObject();
+		Participante p = (Participante) candidate.getObject();
         boolean teste = false;
 
-        for (Participante p : r.getParticipantes()) {
-            if (r.getDatahora().getMonthValue() == mes && p.getNome().equals(nome)) {
-                teste = true;
-                break;
+        /* Sem retornar o participante pesquisado */
+
+        if (p.getNome().equals(nome)) {
+            teste = false;
+        }
+        else {
+            for (Reuniao reuniao : p.getReunioes()) {
+                if (reuniao.getDatahora().getMonthValue() == mes) {
+                    for (Participante participante : reuniao.getParticipantes()) {
+                        if (participante.getNome().equals(nome)) {
+                            teste = true;
+                            break;
+                        }
+                    }
+                }
             }
         }
+
+        /* Retornando junto com o participante pesquisado */
+
+        // for (Reuniao reuniao : p.getReunioes()) {
+        //     if (reuniao.getDatahora().getMonthValue() == mes) {
+        //         for (Participante participante : reuniao.getParticipantes()) {
+        //             if (participante.getNome().equals(nome)) {
+        //                 teste = true;
+        //                 break;
+        //             }
+        //         }
+        //     }
+        // }
 
 		candidate.include(teste);
 	}
