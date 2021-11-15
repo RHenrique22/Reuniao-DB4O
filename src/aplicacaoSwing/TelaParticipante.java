@@ -157,7 +157,7 @@ public class TelaParticipante {
 						int escolha = JOptionPane.showOptionDialog(null, "Confirma exclusão de participante "+ nome, "Alerta",
 								JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
 						if(escolha == 0) {
-							//	Fachada.apagarParticipante(nome);
+							Fachada.apagarParticipante(nome);
 							label.setText("apagou "+nome);
 							listagem();
 						}

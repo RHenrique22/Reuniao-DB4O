@@ -145,9 +145,10 @@ public class Fachada {
 					Duration duracao = Duration.between(r1.getDatahora(), dth); //(d - hinicio)
 					long horas = duracao.toHours();
 					if (Math.abs(horas) < 2) {
-						exceptionH += String.format("Participante %s já está em outra reunião nesse horário%n", p.getNome());
-						teste = false;
-						break;
+						//exceptionH += String.format;
+						throw new Exception("Participante " + n +" já está em outra reunião nesse horário");
+						// teste = false;
+						// break;
 					}
 					else {
 						teste = true;

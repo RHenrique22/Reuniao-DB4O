@@ -10,7 +10,7 @@ public class Consultar {
 			Fachada.desabilitarEmail(true);
 
 			System.out.println("\nQuais os participantes que tem reunião com participante P no mes m");
-			for(Participante p : Fachada.consultaA("jose", 11)) {   //P=jose e M=12
+			for(Participante p : Fachada.consultaA("jose", 12)) {   //P=jose e M=12
 				System.out.println(p);
 			}
 
